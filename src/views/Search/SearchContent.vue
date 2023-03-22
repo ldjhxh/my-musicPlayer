@@ -53,7 +53,7 @@ export default {
         return {
             currentPage: 1,//当前页数
             pageSize: 15, //显示数据的条数
-            type: this.$route.query.type
+            type: this.$route.query.type,
         }
     },
     mounted() {
@@ -140,10 +140,6 @@ export default {
                 popularity: row.pop,
                 version: row.version,
             }
-            // if (home.localData.length) {
-            // 判断播放列表中是否有该音乐
-            //  temp =   home.localData.filter(item => row.id !== item.id)
-            // } 
             home.localData.push(obj)
             // 保存数据
             home.updateLocalData(home.localData)

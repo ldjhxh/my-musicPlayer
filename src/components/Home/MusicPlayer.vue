@@ -159,6 +159,7 @@ export default {
             isPlaying: 'pause',
             isTouchV: false,//是否正在拖动音量条
             isMute: false, //是否为静音状态
+            isInit: false,
         }
     },
     async mounted() {
@@ -374,12 +375,14 @@ export default {
             const rows = this.$refs.tableRef.$children
             const { home } = useStore()
             // 如果播放的音乐与当前正在播放的音乐一致，则不需要执行操作（节省资源）
-            if (home.curMusicData.length && row.id === home.curMusicData[0].id) {
+            if (this.isInit && home.curMusicData.length && row.id === home.curMusicData[0].id) {
                 return
             }
             home.getCurMusInfo(row.id)
             // 判断url是否请求成功
             if (home.curMusicData.length) {
+                if (!this.isInit) this.$refs.audio.play()
+                this.isInit = true
                 // 修改当前播放的索引
                 home.playI = i
                 // 排它
@@ -453,7 +456,6 @@ export default {
         delCureentM(row, i) {
             const { home } = useStore()
             home.playI = this.musicListData.findIndex(item => this.curMusicUrl[0].id === item.id)
-
             this.musicListData.splice(i, 1)
             // 如果数据只剩下一条
             if (this.musicListData.length < 1) {
@@ -464,7 +466,7 @@ export default {
                 this.$refs.audio.pause()
                 this.curMusicUrl = []
                 this.initTime = ''
-                this.sDuration = '00:00'
+                this.sDuration = this.initTime
                 this.curTime = this.initTime
                 home.updateLocalData([])
                 return
