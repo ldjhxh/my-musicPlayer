@@ -1,20 +1,20 @@
 <template>
     <el-card class="box-card">
         <el-carousel :interval="4000" type="card" height="310px">
-            <el-carousel-item v-for="item in carData" :key="item.targetId">
+            <!-- key值绑定每项的图片地址 -->
+            <el-carousel-item v-for="item in carData" :key="item.imageUrl">
                 <img :src="item.imageUrl" alt="">
             </el-carousel-item>
         </el-carousel>
     </el-card>
 </template>
 
-<script >
+<script>
 import useStore from '@/stores/counter'
 export default {
     name: 'CarouselView',
     data() {
         return {
-            // carData: []
         }
     },
     mounted() {

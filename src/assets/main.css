@@ -8,6 +8,15 @@
   font-weight: normal;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.box-card {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 a,
 .green {
   text-decoration: none;
